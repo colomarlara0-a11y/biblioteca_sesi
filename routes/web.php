@@ -8,6 +8,7 @@ use App\Http\Controllers\Comentarios_publicosController;
 use App\Http\Controllers\Login_funcionarioController;
 use App\Http\Controllers\LivrosController;
 use App\Http\Controllers\LeiturasController;
+use App\Http\Controllers\LoginController;
 
 
 Route::get('/', function () {
@@ -21,3 +22,4 @@ Route::get('/Comentarios_publicos', [Comentarios_publicosController::class, 'com
 Route::get('/Login_funcionario', [Login_funcionarioController::class, 'login_funcionario_html'])->name('Login_funcionario');
 Route::get('/Livros', [LivrosController::class, 'livros_html'])->name('Livros');
 Route::get('/Leituras', [LeiturasController::class, 'leituras_html'])->name('Leituras');
+Route::get('/Login', [LoginController::class, 'mostrarlogin'])->name('Login');

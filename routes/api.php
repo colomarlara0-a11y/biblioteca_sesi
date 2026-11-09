@@ -25,7 +25,7 @@ Route::post('/login', [UsuarioController::class, 'login']);
 Route::get('/ver_usuario', [UsuarioController::class, 'ver_usuario']);
 Route::get('/listar_usuarios', [UsuarioController::class, 'listar_usuarios']);
 Route::get('/listar_usuarios_simples', [UsuarioController::class, 'listar_usuarios_simples']);
-Route::get('/logout_u', [UsuarioController::class, 'logout_u'])->middleware(LoginApiMiddleware::class);
+Route::post('/logout_u', [UsuarioController::class, 'logout_u'])->middleware(LoginApiMiddleware::class);
 
 Route::put('/alterar_usuario', [UsuarioController::class, 'alterar_usuario'])->middleware(LoginApiMiddleware::class);
 Route::delete('/deletar_usuario', [UsuarioController::class, 'deletar_usuario'])->middleware(LoginApiMiddleware::class);
