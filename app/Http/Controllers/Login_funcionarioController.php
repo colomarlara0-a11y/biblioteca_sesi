@@ -92,7 +92,7 @@ class Login_funcionarioController extends Controller
    
     
 
-           public function login_funcionario_l(Request $request){
+           public function login_funcionario_login(Request $request){
             $request->validate([
              
                 'nif' => 'required',
@@ -113,6 +113,21 @@ class Login_funcionarioController extends Controller
                     }
                 }else{
                     return response()->json(['message' => 'Email ou senha incorretos', 'erro' => 's'], 200);
+                }
+            }
+
+            public function logout (Request $request){
+                $request->validate([
+                    'usuario_id' => 'required',
+                ]);
+                
+                try {
+                    $login_funcionario_token = Login_funcionarioToken::where('usuario_id', $request->usuario_id)->first();
+                    $login_funcionario_token->delete();
+                    return response()->json(['message' => 'Logout realizado com sucesso', 'erro' => 'n'], 200);
+                    
+                } catch (\Throwable $th) {
+                    return response()->json(['message' => 'Erro ao realizar logout', 'erro' => 's', 'msg_erro' => $th->getMessage()], 200);
                 }
             }
 }

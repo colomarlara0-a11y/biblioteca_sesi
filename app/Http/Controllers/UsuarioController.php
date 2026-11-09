@@ -136,6 +136,23 @@ class UsuarioController extends Controller
                     return response()->json(['message' => 'Email ou senha incorretos', 'erro' => 's'], 200);
                 }
             }
+
+            public function logout_u(Request $request){
+                $request->validate([
+                    'token' => 'required',
+                ]);
+                try {
+                    $usuario_token = UsuarioToken::where('token', $request->token)->first();
+                    if($usuario_token){
+                        $usuario_token->delete();
+                        return response()->json(['message' => 'Logout realizado com sucesso', 'erro' => 'n'], 200);
+                    }else{
+                        return response()->json(['message' => 'Token inválido', 'erro' => 's'], 200);
+                    }
+                } catch (\Throwable $th) {
+                    return response()->json(['message' => 'Erro ao realizar logout', 'erro' => 's', 'msg_erro' => $th->getMessage()], 200);
+                }
+            }
         
     
 }
