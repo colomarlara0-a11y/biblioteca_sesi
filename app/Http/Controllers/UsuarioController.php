@@ -128,7 +128,7 @@ class UsuarioController extends Controller
                         $usuario_token->token = Hash::make( $usuario->id  . $usuario->email . now());
                         $usuario_token->valido_ate = now()->addDays(7);
                         $usuario_token->save();
-                        return response()->json(['message' => 'Login realizado com sucesso', 'erro' => 'n', 'usuario' => $usuario, 'token' => $usuario_token->token], 200);
+                        return response()->json(['message' => 'Login realizado com sucesso', 'erro' => 'n', 'usuario' => $usuario, 'token' => $usuario_token->token, "usuario_id" => $usuario->id], 200);
                     }else{
                         return response()->json(['message' => 'Email ou senha incorretos', 'erro' => 's'], 200);
                     }
