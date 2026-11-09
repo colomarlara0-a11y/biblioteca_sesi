@@ -1,0 +1,7 @@
+$kind: http-request
+url: http://biblioteca_sesi.test/api/deletar_leitura
+method: DELETE
+body:
+  type: json
+  content: "{\r\n    \"id\":\"5\"\r\n}"
+order: 5000

@@ -1,0 +1,4 @@
+$kind: http-request
+url: http://biblioteca_sesi.test/api/deletar_livro
+method: DELETE
+order: 5000

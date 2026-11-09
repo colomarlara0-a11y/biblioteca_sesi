@@ -1,0 +1,4 @@
+$kind: http-request
+url: http://biblioteca_sesi.test/api/listar_leituras
+method: GET
+order: 2000

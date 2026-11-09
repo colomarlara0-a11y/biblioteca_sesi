@@ -48,28 +48,42 @@ class LeiturasController extends Controller
         $leitura = Leituras::all();
         return response()->json(['Leituras' => $leitura, 'erro' => 'n'], 200);
     }
-    public function alterar_leitura(Request $request){
-        $request->validate([
-            'id' => 'required|integer|',
-            'usuario_id' => 'integer',
-            'livro_id' => 'integer',
-            'data_adicao' => 'date',    
-        ]); 
-        try {
-            $leitura = Leituras::find($request->id);
-            if ($leitura) {
-                $leitura->update($request->only(['usuario_id', 'livro_id', 'data_adicao']));
-                return response()->json(['message' => 'Leitura alterada com sucesso!', 'erro' => 'n'], 200);
-            } else {
-                return response()->json(['message' => 'Leitura não encontrada', 'erro' => 's'], 200);
-            }
-        } catch (\Throwable $th) {
-            return response()->json(['message' => 'Erro ao alterar leitura', 'erro' => 's', 'msg_erro' => $th->getMessage()], 200);
-        }
-        
-        
     
+    public function alterar_leitura(Request $request)
+    {
+        $request->validate([
+            'id' => 'required|integer|exists:leituras,id',
+            'usuario_id' => 'required|integer',
+            'livro_id' => 'required|integer',
+            'data_adicao' => 'required|date',
+        ]);
+
+        try {
+            $leitura = Leituras::findOrFail($request->id);
+
+            $leitura->usuario_id = $request->usuario_id;
+            $leitura->livro_id = $request->livro_id;
+            $leitura->data_adicao = $request->data_adicao;
+
+            $leitura->save();
+
+            return response()->json([
+                'message' => 'Leitura alterada com sucesso!',
+                'erro' => 'n',
+                'dados' => $leitura->fresh()
+            ], 200);
+
+        } catch (\Throwable $th) {
+
+            return response()->json([
+                'message' => 'Erro ao alterar leitura',
+                'erro' => 's',
+                'msg_erro' => $th->getMessage()
+            ], 500);
+        }
     }
+
+
     public function deletar_leitura(Request $request){
         $request->validate([
             'id' => 'required|integer|',

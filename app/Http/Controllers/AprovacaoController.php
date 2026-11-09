@@ -28,7 +28,6 @@ class AprovacaoController extends Controller
             $aprovacao->login_funcionario_id = $request->login_funcionario_id;
             $aprovacao->aprovado = $request->aprovado;
             $aprovacao->reprovado = $request->reprovado;
-            $aprovacao->status = $request->status;
             $aprovacao->observacao = $request->observacao;
             $aprovacao->data_aprovacao = now();
 

@@ -1,35 +1,43 @@
+
 <?php
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\Login_funcionarioController;
 use App\Http\Controllers\LivrosController;
 use App\Http\Controllers\LeiturasController;
 use App\Http\Controllers\Comentarios_publicosController;
-use App\http\Controllers\Comentarios_privadosController;
+use App\Http\Controllers\Comentarios_privadosController;
 use App\Http\Controllers\AprovacaoController;
+
+use App\Http\Middleware\LoginApiMiddleware;
+use App\Http\Middleware\FuncionarioApiMiddleware;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::post('/usuario_cadastro', [UsuarioController::class, 'cadastrarUsuario']);
+Route::post('/cadastrarUsuario', [UsuarioController::class, 'cadastrarUsuario']);
+Route::post('/login', [UsuarioController::class, 'login']);
 
 Route::get('/ver_usuario', [UsuarioController::class, 'ver_usuario']);
 Route::get('/listar_usuarios', [UsuarioController::class, 'listar_usuarios']);
 Route::get('/listar_usuarios_simples', [UsuarioController::class, 'listar_usuarios_simples']);
-Route::put('/alterar_usuario', [UsuarioController::class, 'alterar_usuario']);
-Route::delete('/deletar_usuario', [UsuarioController::class, 'deletar_usuario']);
 
+Route::put('/alterar_usuario', [UsuarioController::class, 'alterar_usuario'])->middleware(LoginApiMiddleware::class);
+Route::delete('/deletar_usuario', [UsuarioController::class, 'deletar_usuario'])->middleware(LoginApiMiddleware::class);
 
 Route::post('/login_funcionario', [Login_funcionarioController::class, 'login_funcionario']);
 Route::get('/ver_login_funcionario', [Login_funcionarioController::class, 'ver_login_funcionario']);
 Route::get('/listar_login_funcionarios', [Login_funcionarioController::class, 'listar_login_funcionarios']);
-Route::put('/alterar_login_funcionario', [Login_funcionarioController::class, 'alterar_login_funcionario']);
-Route::delete('/deletar_login_funcionario', [Login_funcionarioController::class, 'deletar_login_funcionario']);
-Route::get('/usuario/{id}', [Login_funcionarioController::class, 'show']);
 
+Route::put('/alterar_login_funcionario', [Login_funcionarioController::class, 'alterar_login_funcionario'])->middleware(FuncionarioApiMiddleware::class);
+Route::delete('/deletar_login_funcionario', [Login_funcionarioController::class, 'deletar_login_funcionario'])->middleware(FuncionarioApiMiddleware::class);
+
+Route::get('/usuario/{id}', [Login_funcionarioController::class, 'show']);
+Route::post('/login_funcionario_l', [Login_funcionarioController::class, 'login_funcionario_l']);
 
 Route::post('/cadastrarLivros', [LivrosController::class, 'cadastrarLivros']);
 Route::get('/listar_livros', [LivrosController::class, 'listar_livros']);

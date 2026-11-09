@@ -1,0 +1,17 @@
+$kind: http-request
+url: http://biblioteca_sesi.test/api/cadastrarLeituras
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \  \"id\": \"8\",\r
+
+    \  \"usuario_id\": \"6\",\r
+
+    \  \"livro_id\": \"2\",\r
+
+    \  \"data_adicao\" : \"2026-10-21\"\r
+
+    }"
+order: 1000

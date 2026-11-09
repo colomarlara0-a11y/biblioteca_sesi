@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Login_funcionario;
-
+use App\Models\LoginFuncionarioToken;
 class Login_funcionarioController extends Controller
 {
     Public function login_funcionario_html(Request $request)
@@ -12,7 +13,7 @@ class Login_funcionarioController extends Controller
         return view('Login_funcionario');
     }
 
-    public function cadastrarLogin_funcionario(Request $request){
+    public function login_funcionario(Request $request){
 
         $request->validate([
             'cargo' => 'required|string|max:255',
@@ -88,4 +89,30 @@ class Login_funcionarioController extends Controller
             return response()->json(['message' => 'Erro ao deletar login do funcionário', 'erro' => 's', 'msg_erro' => $th->getMessage()], 200);
         }
     }
+   
+    
+
+           public function login_funcionario_l(Request $request){
+            $request->validate([
+             
+                'nif' => 'required',
+            ]);
+
+                $login_funcionario = Login_funcionario::where('nif', $request->nif)->first();
+                if($login_funcionario){
+                    
+                    if(Hash::check($request->nif, $login_funcionario->nif)){
+                        $login_funcionario_token  = new Login_funcionarioToken();
+                        $login_funcionario_token->login_funcionario_id = $login_funcionario->id;
+                        $login_funcionario_token->token = Hash::make( $login_funcionario->id.$login_funcionario->nif.now());
+                        $login_funcionario_token->valido_ate = now()->addDays(7);
+                        $login_funcionario_token->save();
+                        return response()->json(['message' => 'Login realizado com sucesso', 'erro' => 'n', 'login_funcionario' => $login_funcionario, 'token' => $login_funcionario_token->token], 200);
+                    }else{
+                        return response()->json(['message' => 'Email ou senha incorretos', 'erro' => 's'], 200);
+                    }
+                }else{
+                    return response()->json(['message' => 'Email ou senha incorretos', 'erro' => 's'], 200);
+                }
+            }
 }

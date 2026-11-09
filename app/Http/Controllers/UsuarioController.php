@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Usuario;
 use Illuminate\Support\Facades\Hash;
+use App\Models\UsuarioToken;
 
 class UsuarioController extends Controller
 {
@@ -111,5 +112,30 @@ class UsuarioController extends Controller
                 return response()->json(['message' => 'Erro ao deletar usuário', 'erro' => 's', 'msg_erro' => $th->getMessage()], 200);
             }
         }
+
+        public function login(Request $request){
+            $request->validate([
+                'email' => 'required',
+                'senha' => 'required',
+            ]);
+
+                $usuario = Usuario::where('email', $request->email)->first();
+                if($usuario){
+                    
+                    if(Hash::check($request->senha, $usuario->senha)){
+                        $usuario_token  = new UsuarioToken();
+                        $usuario_token->usuario_id = $usuario->id;
+                        $usuario_token->token = Hash::make( $usuario->id  . $usuario->email . now());
+                        $usuario_token->valido_ate = now()->addDays(7);
+                        $usuario_token->save();
+                        return response()->json(['message' => 'Login realizado com sucesso', 'erro' => 'n', 'usuario' => $usuario, 'token' => $usuario_token->token], 200);
+                    }else{
+                        return response()->json(['message' => 'Email ou senha incorretos', 'erro' => 's'], 200);
+                    }
+                }else{
+                    return response()->json(['message' => 'Email ou senha incorretos', 'erro' => 's'], 200);
+                }
+            }
+        
     
 }

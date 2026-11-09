@@ -1,0 +1,21 @@
+$kind: http-request
+url: http://biblioteca_sesi.test/api/cadastrarLivros
+method: POST
+body:
+  type: json
+  content: "{\r
+
+    \    \"id\":\"7\",\r
+
+    \    \"titulo\": \"1984\",\r
+
+    \    \"autor\" : \"george orwell\",\r
+
+    \    \"ano_publicacao\": \"1949\",\r
+
+    \    \"genero\":\"realismo\",\r
+
+    \    \"descricao\" : \"Faz bastante critica social\"\r
+
+    }"
+order: 1000
