@@ -30,7 +30,7 @@ Route::post('/logout_u', [UsuarioController::class, 'logout_u'])->middleware(Log
 Route::put('/alterar_usuario', [UsuarioController::class, 'alterar_usuario'])->middleware(LoginApiMiddleware::class);
 Route::delete('/deletar_usuario', [UsuarioController::class, 'deletar_usuario'])->middleware(LoginApiMiddleware::class);
 
-Route::post('/login_funcionario', [Login_funcionarioController::class, 'login_funcionario']);
+Route::post('/login_funcionario', [Login_funcionarioController::class, 'login_funcionario'])->middleware(FuncionarioApiMiddleware::class);
 Route::get('/ver_login_funcionario', [Login_funcionarioController::class, 'ver_login_funcionario']);
 Route::get('/listar_login_funcionarios', [Login_funcionarioController::class, 'listar_login_funcionarios']);
 

@@ -17,7 +17,7 @@
     @vite('resources/js/login.js')
 
 </head>
-<body class="bg-inverse">
+<body class="bg-body-tertiary">
     
 <div class = "container mt-5"> 
     <div class="row justify-content-center  ">
@@ -25,17 +25,15 @@
             <h3 class="text-center mt-5 fg-black">Login</h3>
             <div class="mb-3">
                 <label for="email" class="form-label fg-black">Email </label>
-                <input type="email" class="form-control form-control-sm bg-inverse" id="email" aria-describedby="emailHelp" >
+                <input type="email" class="form-control form-control-sm bg-light" id="email" aria-describedby="emailHelp" >
                 <div id="emailHelp" class="form-text fg-black">Informe seu email cadastrado</div>
             </div>
             <div class="mb-3">
                 <label for="senha" class="form-label fg-black">Senha</label>
-                <input type="password" class="form-control form-control-sm bg-inverse " id="senha">
+                <input type="password" class="form-control form-control-sm bg-light " id="senha">
             </div>
         
         <button type="button" class="btn-solid theme-primary" style="background-color: #007bff; border-color: #007bff;" id = "entrar">Entrar</button>
-
-
         </div>
     </div>
         
