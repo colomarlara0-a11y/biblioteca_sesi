@@ -27,3 +27,4 @@ Route::get('/Livros', [LivrosController::class, 'livros_html'])->name('Livros');
 Route::get('/Leituras', [LeiturasController::class, 'leituras_html'])->name('Leituras');
 Route::get('/Login', [LoginController::class, 'mostrarlogin'])->name('Login');
 Route ::get('/home', [homeController::class, 'mostraHome'])->name('home')->middleware(LogadoMiddleware::class);
+Route ::get('/Cadastro', [Login_funcionarioController::class, 'login_funcionario_html'])->name('Cadastro');

@@ -9,6 +9,7 @@ use App\Models\Login_funcionarioToken;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Login_funcionario;
+use App\Models\Usuario;
 
 class FuncionarioApiMiddleware
 {

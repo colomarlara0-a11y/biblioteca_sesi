@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Login_funcionario;
 use App\Models\LoginFuncionarioToken;
+use App\Models\Usuario;
 
 class Login_funcionarioController extends Controller
 {
     Public function login_funcionario_html(Request $request)
     {
-        return view('Login_funcionario');
+        
+        $usuarios = Usuario::all();
+        return view ('Cadastro')->with('usuarios', $usuarios);
     }
 
     public function login_funcionario(Request $request){
@@ -34,6 +37,8 @@ class Login_funcionarioController extends Controller
         } catch (\Throwable $th) {
             return response()->json(['message' => 'Erro ao cadastrar login do funcionário', 'erro' => 's', 'msg_erro' => $th->getMessage()], 200);
         }
+
+        
 
      
     }
@@ -129,4 +134,8 @@ class Login_funcionarioController extends Controller
                     return response()->json(['message' => 'Erro ao realizar logout', 'erro' => 's', 'msg_erro' => $th->getMessage()], 200);
                 }
             }
+
+            
+             
+            
 }

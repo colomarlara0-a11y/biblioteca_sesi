@@ -14,7 +14,7 @@ class UsuarioController extends Controller
         return view('Usuario');
     }
     
-    public function cadastrarUsuario(Request $request){
+    public function cadastro(Request $request){
 
         $request->validate([
             'nome' => 'required|string|max:255',
@@ -39,6 +39,7 @@ class UsuarioController extends Controller
             
             return response()->json(['message' => 'Erro ao cadastrar usuário', 'erro' => 's', 'msg_erro' => $th->getMessage()], 200);
         }
+        
 
     }
 

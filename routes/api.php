@@ -30,7 +30,7 @@ Route::post('/logout_u', [UsuarioController::class, 'logout_u'])->middleware(Log
 Route::put('/alterar_usuario', [UsuarioController::class, 'alterar_usuario'])->middleware(LoginApiMiddleware::class);
 Route::delete('/deletar_usuario', [UsuarioController::class, 'deletar_usuario'])->middleware(LoginApiMiddleware::class);
 
-Route::post('/login_funcionario', [Login_funcionarioController::class, 'login_funcionario'])->middleware(FuncionarioApiMiddleware::class);
+Route::post('/login_funcionario', [Login_funcionarioController::class, 'login_funcionario'])->middleware(LoginApiMiddleware::class);
 Route::get('/ver_login_funcionario', [Login_funcionarioController::class, 'ver_login_funcionario']);
 Route::get('/listar_login_funcionarios', [Login_funcionarioController::class, 'listar_login_funcionarios']);
 
@@ -70,3 +70,4 @@ Route::get('/listar_aprovacoes', [AprovacaoController::class, 'listar_aprovacoes
 Route::get('/ver_aprovacao', [AprovacaoController::class, 'ver_aprovacao']);
 Route::put('/alterar_aprovacao', [AprovacaoController::class, 'alterar_aprovacao']);
 Route::delete('/deletar_aprovacao', [AprovacaoController::class, 'deletar_aprovacao']);
+Route::post('/Cadastro', [UsuarioController::class, 'cadastro']);
